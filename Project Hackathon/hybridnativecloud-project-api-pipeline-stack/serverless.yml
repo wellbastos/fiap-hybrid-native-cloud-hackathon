@@ -1,0 +1,28 @@
+service: caller-pipeline
+provider:
+  name: aws
+  runtime: python3.8
+  region: us-east-1
+
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "codepipeline:*"
+      Resource: 
+        - "arn:aws:codepipeline:us-east-1:*:hackathon-CD-app-stack"
+        
+
+
+functions:
+  caller-codepipeline:
+    handler: handler.main
+    environment:
+      GROUP: rafabarbosa
+    events:
+      - http:
+         path: activate
+         method: post
+        
+            
+
